@@ -2,7 +2,7 @@
 
 # Variables
 SERVER_PATH="/opt/minecraft/server"
-BACKUP_PATH="/mnt/philips/minecraft"
+BACKUP_PATH="/mnt/philips/mc"
 CONTAINER_NAME="minecraft-minecraft-1"
 MAX_BACKUPS=3
 

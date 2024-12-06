@@ -1,0 +1,8 @@
+---
+services:
+  crontabui:
+    image: alseambusher/crontab-ui
+    container_name: crontabui
+    ports:
+      - 8082:8000
+    restart: unless-stopped

@@ -1,9 +1,10 @@
 #!/bin/bash
 
 # Variables
-SERVER_PATH="/opt/minecraft/server"
-BACKUP_PATH="/mnt/philips/minecraft"
-CONTAINER_NAME="minecraft-minecraft-1"
+SERVER_PATH="/opt/npm"
+BACKUP_PATH="/mnt/philips/npm"
+CONTAINER_NAME1="nginx"
+CONTAINER_NAME2="nginx-db"
 MAX_BACKUPS=3
 
 # Vérifier si le dossier SERVER_PATH existe
@@ -18,18 +19,15 @@ if [ ! -d "$BACKUP_PATH" ]; then
     mkdir $BACKUP_PATH
 fi
 
-#Lancement du cript de décompte
-./message.sh
+# Arret des conteneurs
+#docker stop $CONTAINER_NAME1
+#docker stop $CONTAINER_NAME2
+sleep 10
 
-docker exec $CONTAINER_NAME rcon-cli stop
-echo "Arrêt du conteneur '$CONTAINER_NAME'..."
-
-# Attendre quelques secondes pour que le conteneur s'arrête
-sleep 5
 echo "Le conteneur '$CONTAINER_NAME' a été arrêté avec succès."
 
 # Création d'un nom de fichier de sauvegarde avec la date et l'heure
-BACKUP_NAME="backup_$(date +"%Y%m%d_%H%M%S")"
+BACKUP_NAME="backup_stirling$(date +"%Y%m%d_%H%M%S")"
 
 # Copie du répertoire du serveur
 echo "Copie du répertoire du serveur"
@@ -57,11 +55,9 @@ if [ $BACKUP_COUNT -gt $MAX_BACKUPS ]; then
     ls -1t $BACKUP_PATH/backup* | tail -n +$(($MAX_BACKUPS+1)) | xargs -I {} sudo rm -r {}
 fi
 
-# Redémarrage du serveur Minecraft
-echo "Redémarrage du serveur Minecraft..."
-docker start $CONTAINER_NAME
-
 # Attendre quelques secondes pour que le conteneur redémarre
+#docker start $CONTAINER_NAME1
+#docker start $CONTAINER_NAME2
 sleep 10
 
 echo "Opération terminée."

@@ -1,8 +1,9 @@
 #!/bin/bash
 
 # Variables
-SERVER_PATH="/opt/vw"
-BACKUP_PATH="/mnt/philips/vw"
+SERVER_PATH="/opt/heimdall"
+BACKUP_PATH="/mnt/philips/heimdall"
+CONTAINER_NAME="heimdall"
 MAX_BACKUPS=3
 
 # Vérifier si le dossier SERVER_PATH existe
@@ -17,8 +18,14 @@ if [ ! -d "$BACKUP_PATH" ]; then
     mkdir $BACKUP_PATH
 fi
 
+# Arret des conteneurs
+docker stop $CONTAINER_NAME
+sleep 10
+
+echo "Le conteneur '$CONTAINER_NAME' a été arrêté avec succès."
+
 # Création d'un nom de fichier de sauvegarde avec la date et l'heure
-BACKUP_NAME="backup_$(date +"%Y%m%d_%H%M%S")"
+BACKUP_NAME="backup_heimdall$(date +"%Y%m%d_%H%M%S")"
 
 # Copie du répertoire du serveur
 echo "Copie du répertoire du serveur"
@@ -47,6 +54,7 @@ if [ $BACKUP_COUNT -gt $MAX_BACKUPS ]; then
 fi
 
 # Attendre quelques secondes pour que le conteneur redémarre
+docker start $CONTAINER_NAME
 sleep 10
 
 echo "Opération terminée."

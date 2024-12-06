@@ -31,7 +31,7 @@ echo "Le conteneur '$CONTAINER_NAME2' a été arrêté avec succès."
 echo "Le conteneur '$CONTAINER_NAME3' a été arrêté avec succès."
 
 # Création d'un nom de fichier de sauvegarde avec la date et l'heure
-BACKUP_NAME="backup_adventurelog$(date +"%Y%m%d_%H%M%S")"
+BACKUP_NAME="backup_adventurelog_$(date +"%Y%m%d_%H%M%S")"
 
 # Copie du répertoire du serveur
 echo "Copie du répertoire du serveur"

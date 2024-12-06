@@ -29,7 +29,7 @@ sleep 5
 echo "Le conteneur '$CONTAINER_NAME' a été arrêté avec succès."
 
 # Création d'un nom de fichier de sauvegarde avec la date et l'heure
-BACKUP_NAME="backup_mc$(date +"%Y%m%d_%H%M%S")"
+BACKUP_NAME="backup_mc_$(date +"%Y%m%d_%H%M%S")"
 
 # Copie du répertoire du serveur
 echo "Copie du répertoire du serveur"
